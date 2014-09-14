@@ -8,7 +8,7 @@ host-stat-go is a Go module for collecting host stat.
 
 This module provided functions to collect cpu/mem/disk/io/load/uptime/kernel info of the host.
 
-* Work for popular LINUX distributions ONLY *
+*Work for popular LINUX distributions ONLY*
 
 ## Installation
 
@@ -60,9 +60,9 @@ Host and Kernel information
 
 ## Example
 
-Get the memory stat:
+Get the memory stat
 
-    mem_stat, err := GetMemStat()
+    mem_stat, err := host_stat.GetMemStat()
     if err != nil {
         // print total memory of host in KB
         fmt.Println(mem_stat.MemTotal)
