@@ -12,6 +12,7 @@ package host_stat
 
 import (
     "strings"
+    "strconv"
 )
 
 
@@ -41,9 +42,17 @@ func GetHostInfo() (info HostInfo, err error) {
         return
     }
 
-    info.OSBit = "32Bit"
-    if len(info.OSRelease) > 3 && info.OSRelease[len(info.OSRelease) - 3:] == "_64" {
-        info.OSBit = "64Bit"
+    info.OSBit = ""
+    if len(info.OSRelease) > 6 {
+        if info.OSRelease[len(info.OSRelease) - 6:] == "x86_64" {
+            info.OSBit = "64Bit"
+        } else if info.OSRelease[len(info.OSRelease) - 4:] == "i686" {
+            info.OSBit = "32Bit"
+        }
+    }
+
+    if info.OSBit == "" {
+        info.OSBit = strconv.Itoa(32 << uintptr(^uintptr(0) >> 63)) + "Bit"
     }
 
     info.Version, err = ReadFirstLine("/proc/sys/kernel/version")
