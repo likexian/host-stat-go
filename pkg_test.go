@@ -12,6 +12,7 @@ package host_stat
 
 import (
     "fmt"
+    "os"
     "testing"
     "github.com/bmizerany/assert"
 )
@@ -39,7 +40,13 @@ func TestHostStat(t *testing.T) {
     fmt.Println(disk_stat)
 
     io_stat, err := GetIOStat()
-    assert.Equal(t, nil, err)
+    if err != nil {
+        if e, ok := err.(*os.PathError); ok {
+            fmt.Println(e)
+        } else {
+            assert.Equal(t, nil, err)
+        }
+    }
     fmt.Println(io_stat)
 
     net_stat, err := GetNetStat()
