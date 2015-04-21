@@ -84,6 +84,11 @@ func GetRelease() (name string, err error) {
             }
 
             ls := strings.Split(l, "=")
+            ls[1] = strings.Trim(ls[1], "\"")
+            if strings.Contains(ls[1], ",") {
+                ls[1] = strings.Split(ls[1], ",")[0]
+            }
+
             if ls[0] == "NAME" {
                 name = ls[1]  // Fedora
             } else if ls[0] == "VERSION" {
