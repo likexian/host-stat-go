@@ -1,3 +1,5 @@
+// +build !windows
+
 /*
  * Go module for collecting host stat
  * http://www.likexian.com/
