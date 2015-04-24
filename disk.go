@@ -1,3 +1,5 @@
+// +build !windows
+
 /*
  * Go module for collecting host stat
  * http://www.likexian.com/
@@ -6,8 +8,6 @@
  * Released under the Apache License, Version 2.0
  *
  */
-
-// +build !windows
 
 package host_stat
 
