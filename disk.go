@@ -7,6 +7,8 @@
  *
  */
 
+// +build !windows
+
 package host_stat
 
 
