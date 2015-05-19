@@ -2,9 +2,9 @@
 
 /*
  * Go module for collecting host stat
- * http://www.likexian.com/
+ * https://www.likexian.com/
  *
- * Copyright 2014, Kexian Li
+ * Copyright 2014-2015, Li Kexian
  * Released under the Apache License, Version 2.0
  *
  */

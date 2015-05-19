@@ -1,5 +1,3 @@
 *.~
 *.swp
 .DS_Store
-.vagrant
-Vagrantfile
