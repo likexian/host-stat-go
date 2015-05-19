@@ -32,8 +32,8 @@ type IOStat struct {
     InFlight     uint64 `json:"in_flight"`     // number of I/Os currently in progress
     IOTicks      uint64 `json:"io_ticks"`      // number of milliseconds spent doing I/Os(in flight)
     TimeInQueue  uint64 `json:"time_in_queue"` // total wait time for all requests in milliseconds
-    ReadBytes   uint64 `json:"read_kbytes"`   // rkB/s
-    WriteBytes  uint64 `json:"write_kbytes"`  // wkB/s
+    ReadBytes    uint64 `json:"read_bytes"`    // rB/s
+    WriteBytes   uint64 `json:"write_bytes"`   // wB/s
 }
 
 
