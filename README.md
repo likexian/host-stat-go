@@ -79,10 +79,14 @@ Get the memory stat
 
 ## LICENSE
 
-Copyright 2014-2015, Li Kexian
+Copyright 2014-2019, Li Kexian
 
 Apache License, Version 2.0
 
 ## About
 
 - [Li Kexian](https://www.likexian.com/)
+
+## DONATE
+
+- [Help me make perfect](https://www.likexian.com/donate/)

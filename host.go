@@ -2,7 +2,7 @@
  * Go module for collecting host stat
  * https://www.likexian.com/
  *
- * Copyright 2014-2015, Li Kexian
+ * Copyright 2014-2019, Li Kexian
  * Released under the Apache License, Version 2.0
  *
  */
@@ -99,26 +99,6 @@ func GetRelease() (name string, err error) {
                 break
             }
         }
-    } else if IsFileExists("/etc/lsb-release") {
-        text, err = ReadFile("/etc/lsb-release")
-        if err != nil {
-            return
-        }
-
-        lines := strings.Split(text, "\n")
-        for _, l := range lines {
-            if !strings.Contains(l, "=") {
-                continue
-            }
-
-            ls := strings.Split(l, "=")
-            if ls[0] == "DISTRIB_ID" {
-                name = ls[1]  // Ubuntu
-            } else if ls[0] == "DISTRIB_RELEASE" {
-                name = name + " " + ls[1]  // 9.04
-                break
-            }
-        }
     } else if IsFileExists("/etc/redhat-release") {
         text, err = ReadFirstLine("/etc/redhat-release")
         if err != nil {
@@ -143,6 +123,26 @@ func GetRelease() (name string, err error) {
             return
         }
         name = "Debian " + text
+    } else if IsFileExists("/etc/lsb-release") {
+        text, err = ReadFile("/etc/lsb-release")
+        if err != nil {
+            return
+        }
+
+        lines := strings.Split(text, "\n")
+        for _, l := range lines {
+            if !strings.Contains(l, "=") {
+                continue
+            }
+
+            ls := strings.Split(l, "=")
+            if ls[0] == "DISTRIB_ID" {
+                name = ls[1]  // Ubuntu
+            } else if ls[0] == "DISTRIB_RELEASE" {
+                name = name + " " + ls[1]  // 9.04
+                break
+            }
+        }
     }
 
     if strings.Contains(name, "(") {

@@ -4,7 +4,7 @@
  * Go module for collecting host stat
  * https://www.likexian.com/
  *
- * Copyright 2014-2015, Li Kexian
+ * Copyright 2014-2019, Li Kexian
  * Released under the Apache License, Version 2.0
  *
  */
