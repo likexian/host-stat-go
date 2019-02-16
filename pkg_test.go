@@ -11,53 +11,62 @@ package host_stat
 
 
 import (
-    "fmt"
     "os"
+    "runtime"
     "testing"
-    "github.com/bmizerany/assert"
 )
+
+
+func assertNotError(t *testing.T, err error) {
+    if err != nil {
+        _, file, line, _ := runtime.Caller(1)
+        t.Errorf("%s:%d", file, line)
+        t.Errorf(err.Error())
+        t.FailNow()
+    }
+}
 
 
 func TestHostStat(t *testing.T) {
     host_info, err := GetHostInfo()
-    assert.Equal(t, nil, err)
-    fmt.Println(host_info)
+    assertNotError(t, err)
+    t.Log(host_info)
 
     cpu_info, err := GetCPUInfo()
-    assert.Equal(t, nil, err)
-    fmt.Println(cpu_info)
+    assertNotError(t, err)
+    t.Log(cpu_info)
 
     cpu_stat, err := GetCPUStat()
-    assert.Equal(t, nil, err)
-    fmt.Println(cpu_stat)
+    assertNotError(t, err)
+    t.Log(cpu_stat)
 
     mem_stat, err := GetMemStat()
-    assert.Equal(t, nil, err)
-    fmt.Println(mem_stat)
+    assertNotError(t, err)
+    t.Log(mem_stat)
 
     disk_stat, err := GetDiskStat()
-    assert.Equal(t, nil, err)
-    fmt.Println(disk_stat)
+    assertNotError(t, err)
+    t.Log(disk_stat)
 
     io_stat, err := GetIOStat()
     if err != nil {
         if e, ok := err.(*os.PathError); ok {
-            fmt.Println(e)
+            t.Log(e)
         } else {
-            assert.Equal(t, nil, err)
+            assertNotError(t, err)
         }
     }
-    fmt.Println(io_stat)
+    t.Log(io_stat)
 
     net_stat, err := GetNetStat()
-    assert.Equal(t, nil, err)
-    fmt.Println(net_stat)
+    assertNotError(t, err)
+    t.Log(net_stat)
 
     uptime_stat, err := GetUptimeStat()
-    assert.Equal(t, nil, err)
-    fmt.Println(uptime_stat)
+    assertNotError(t, err)
+    t.Log(uptime_stat)
 
     load_stat, err := GetLoadStat()
-    assert.Equal(t, nil, err)
-    fmt.Println(load_stat)
+    assertNotError(t, err)
+    t.Log(load_stat)
 }

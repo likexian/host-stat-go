@@ -12,7 +12,7 @@ This module provided functions to collect cpu/mem/disk/io/load/uptime/kernel inf
 
 ## Installation
 
-    go get github.com/likexian/host-stat-go
+    go get -u github.com/likexian/host-stat-go
 
 ## Importing
 
