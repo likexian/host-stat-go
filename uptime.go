@@ -9,38 +9,35 @@
 
 package hoststat
 
-
 import (
-    "strings"
-    "strconv"
+	"strconv"
+	"strings"
 )
-
 
 // UptimeStat storing uptime stat
 type UptimeStat struct {
-    Uptime   float64 `json:"uptime"`
-    IdleTime float64 `json:"idle_time"`
-    IdleRate float64 `json:"idle_rate"`
+	Uptime   float64 `json:"uptime"`
+	IdleTime float64 `json:"idle_time"`
+	IdleRate float64 `json:"idle_rate"`
 }
-
 
 // GetUptimeStat returns uptime stat
 func GetUptimeStat() (stat UptimeStat, err error) {
-    text, err := ReadFirstLine("/proc/uptime")
-    if err != nil {
-        return
-    }
+	text, err := ReadFirstLine("/proc/uptime")
+	if err != nil {
+		return
+	}
 
-    lines := strings.Split(text, "\n")
-    fields := strings.Fields(lines[0])
+	lines := strings.Split(text, "\n")
+	fields := strings.Fields(lines[0])
 
-    stat = UptimeStat{}
-    stat.Uptime, _ = strconv.ParseFloat(fields[0], strconv.IntSize)
-    stat.IdleTime, _ = strconv.ParseFloat(fields[1], strconv.IntSize)
-    stat.IdleRate = Round(stat.IdleTime * 100 / stat.Uptime, 2)
+	stat = UptimeStat{}
+	stat.Uptime, _ = strconv.ParseFloat(fields[0], strconv.IntSize)
+	stat.IdleTime, _ = strconv.ParseFloat(fields[1], strconv.IntSize)
+	stat.IdleRate = Round(stat.IdleTime*100/stat.Uptime, 2)
 
-    stat.Uptime = Round(stat.Uptime, 2)
-    stat.IdleTime = Round(stat.IdleTime, 2)
+	stat.Uptime = Round(stat.Uptime, 2)
+	stat.IdleTime = Round(stat.IdleTime, 2)
 
-    return
+	return
 }
