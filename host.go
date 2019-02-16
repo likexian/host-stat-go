@@ -157,7 +157,7 @@ func GetRelease() (name string, err error) {
         names := strings.Split(name, "/")
         name = strings.Join(names[:len(names) - 1], "/")
     }
-    name = strings.Trim(name, " ")
+    name = strings.TrimSpace(name)
 
     return
 }

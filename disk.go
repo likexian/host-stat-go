@@ -40,7 +40,7 @@ func GetDiskStat() (stat []DiskStat, err error) {
     stat = []DiskStat{}
     lines := strings.Split(string(text), "\n")
     for i:=0; i<len(lines); i++ {
-        lines[i] = strings.Trim(lines[i], " ")
+        lines[i] = strings.TrimSpace(lines[i])
         if lines[i] == "" {
             continue
         }

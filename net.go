@@ -55,7 +55,7 @@ func GetNetStat() (stat []NetStat, err error) {
 
         netStat := NetStat{}
         fields := strings.Split(v, ":")
-        netStat.Device = strings.Trim(fields[0], " ")
+        netStat.Device = strings.TrimSpace(fields[0])
 
         fields = strings.Fields("Device " + fields[1])
         netStat.RXBytes, _ = strconv.ParseUint(fields[1], 10, strconv.IntSize)

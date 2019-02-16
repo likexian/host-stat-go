@@ -59,8 +59,8 @@ func GetCPUInfo() (info CPUInfo, err error) {
         }
 
         maps := strings.Split(l, ":")
-        maps[0] = strings.Trim(maps[0], "\t")
-        maps[1] = strings.Trim(maps[1], "\t")
+        maps[0] = strings.TrimSpace(maps[0])
+        maps[1] = strings.TrimSpace(maps[1])
 
         if maps[0] == "model name" {
             if info.ModelName == "" {

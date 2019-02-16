@@ -47,7 +47,7 @@ func GetMemStat() (stat MemStat, err error) {
         }
 
         maps := strings.Split(lines[i], ":")
-        key := strings.Trim(maps[0], " ")
+        key := strings.TrimSpace(maps[0])
         if key == "MemTotal" {
             stat.MemTotal = parseMemValue(maps[1])
         } else if key == "MemFree" {
@@ -79,7 +79,7 @@ func GetMemStat() (stat MemStat, err error) {
 func parseMemValue(value string) (mem uint64) {
     data := strings.Fields(value)
 
-    mem, _ = strconv.ParseUint(strings.Trim(data[0], " "), 10, strconv.IntSize)
+    mem, _ = strconv.ParseUint(strings.TrimSpace(data[0]), 10, strconv.IntSize)
     mem = mem / 1024
 
     return

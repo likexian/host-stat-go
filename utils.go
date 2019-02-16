@@ -52,7 +52,7 @@ func ReadFirstLine(fname string) (line string, err error) {
     }
 
     lines := strings.Split(string(text), "\n")
-    line = strings.Trim(lines[0], " ")
+    line = strings.TrimSpace(lines[0])
 
     return
 }

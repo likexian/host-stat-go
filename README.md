@@ -31,19 +31,19 @@ Visit the docs on [GoDoc](https://godoc.org/github.com/likexian/host-stat-go)
 
 Get the memory stat
 
-    mem_stat, err := hoststat.GetMemStat()
-    if err != nil {
+    memStat, err := hoststat.GetMemStat()
+    if err == nil {
         // print total memory of host in KB
-        fmt.Println(mem_stat.MemTotal)
+        fmt.Println(memStat.MemTotal)
 
         // print used memory of host in KB
-        fmt.Println(mem_stat.MemUsed)
+        fmt.Println(memStat.MemUsed)
 
         // print free memory of host in KB
-        fmt.Println(mem_stat.MemFree)
+        fmt.Println(memStat.MemFree)
 
         // print used memory rate of host in percent
-        fmt.Println(mem_stat.MemRate)
+        fmt.Println(memStat.MemRate)
     }
 
 ## LICENSE
