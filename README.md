@@ -1,8 +1,11 @@
 # host-stat
 
-host-stat-go is a Go module for collecting host stat.
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![GoDoc](https://godoc.org/github.com/likexian/host-stat-go?status.svg)](https://godoc.org/github.com/likexian/host-stat-go)
+[![Build Status](https://travis-ci.org/likexian/host-stat-go.svg?branch=master)](https://travis-ci.org/likexian/host-stat-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/likexian/host-stat-go)](https://goreportcard.com/report/github.com/likexian/host-stat-go)
 
-[![Build Status](https://secure.travis-ci.org/likexian/host-stat-go.png)](https://secure.travis-ci.org/likexian/host-stat-go)
+host-stat-go is a Go module for collecting host stat.
 
 ## Overview
 
@@ -22,47 +25,13 @@ This module provided functions to collect cpu/mem/disk/io/load/uptime/kernel inf
 
 ## Documentation
 
-CPU information
-
-    func GetCPUInfo() (info CPUInfo, err error)
-
-CPU usage stat
-
-    func GetCPUStat() (stat CPUStat, err error)
-
-Memory information and usage stat
-
-    func GetMemStat() (stat MemStat, err error)
-
-Disk information
-
-    func GetDiskStat() (stat []DiskStat, err error)
-
-Disk IO stat
-
-    func GetIOStat() (stat []IOStat, err error)
-
-Network stat
-
-    func GetNetStat() (stat []NetStat, err error)
-
-Host load stat
-
-    func GetLoadStat() (stat LoadStat, err error)
-
-Host uptime stat
-
-    func GetUptimeStat() (stat UptimeStat, err error)
-
-Host and Kernel information
-
-    func GetHostInfo() (info HostInfo, err error)
+Visit the docs on [GoDoc](https://godoc.org/github.com/likexian/host-stat-go)
 
 ## Example
 
 Get the memory stat
 
-    mem_stat, err := host_stat.GetMemStat()
+    mem_stat, err := hoststat.GetMemStat()
     if err != nil {
         // print total memory of host in KB
         fmt.Println(mem_stat.MemTotal)

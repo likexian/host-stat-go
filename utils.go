@@ -7,7 +7,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import(
@@ -18,6 +18,7 @@ import(
 )
 
 
+// Round returns math round
 func Round(data float64, precision int) (result float64) {
     pow := math.Pow(10, float64(precision))
     digit := pow * data
@@ -34,6 +35,7 @@ func Round(data float64, precision int) (result float64) {
 }
 
 
+// IsFileExists returns is file exists
 func IsFileExists(fname string) (bool) {
     if _, err := os.Stat(fname); err == nil {
         return true
@@ -42,6 +44,7 @@ func IsFileExists(fname string) (bool) {
 }
 
 
+// ReadFirstLine returns the first line of file
 func ReadFirstLine(fname string) (line string, err error) {
     text, err := ReadFile(fname)
     if err != nil {
@@ -55,11 +58,13 @@ func ReadFirstLine(fname string) (line string, err error) {
 }
 
 
+// ReadFile returns text of file
 func ReadFile(fname string) (result string, err error) {
     text, err := ioutil.ReadFile(fname)
     if err != nil {
         return
     }
+
     result = string(text)
 
     return

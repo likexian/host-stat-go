@@ -7,7 +7,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import (
@@ -17,12 +17,14 @@ import (
 )
 
 
+// CPUInfo storing cpu info
 type CPUInfo struct {
     ModelName string `json:"model_name"`
     CoreCount uint64 `json:"core_count"`
 }
 
 
+// CPUStat storing cpu stat
 type CPUStat struct {
     User       uint64  `json:"user"`
     Nice       uint64  `json:"nice"`
@@ -41,6 +43,7 @@ type CPUStat struct {
 }
 
 
+// GetCPUInfo returns cpu info
 func GetCPUInfo() (info CPUInfo, err error) {
     text, err := ioutil.ReadFile("/proc/cpuinfo")
     if err != nil {
@@ -71,6 +74,7 @@ func GetCPUInfo() (info CPUInfo, err error) {
 }
 
 
+// GetCPUStat returns cpu stat
 func GetCPUStat() (stat CPUStat, err error) {
     text, err := ioutil.ReadFile("/proc/stat")
     if err != nil {

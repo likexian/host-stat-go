@@ -7,7 +7,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import (
@@ -28,27 +28,27 @@ func assertNotError(t *testing.T, err error) {
 
 
 func TestHostStat(t *testing.T) {
-    host_info, err := GetHostInfo()
+    hostInfo, err := GetHostInfo()
     assertNotError(t, err)
-    t.Log(host_info)
+    t.Log(hostInfo)
 
-    cpu_info, err := GetCPUInfo()
+    cpuInfo, err := GetCPUInfo()
     assertNotError(t, err)
-    t.Log(cpu_info)
+    t.Log(cpuInfo)
 
-    cpu_stat, err := GetCPUStat()
+    cpuStat, err := GetCPUStat()
     assertNotError(t, err)
-    t.Log(cpu_stat)
+    t.Log(cpuStat)
 
-    mem_stat, err := GetMemStat()
+    memStat, err := GetMemStat()
     assertNotError(t, err)
-    t.Log(mem_stat)
+    t.Log(memStat)
 
-    disk_stat, err := GetDiskStat()
+    diskStat, err := GetDiskStat()
     assertNotError(t, err)
-    t.Log(disk_stat)
+    t.Log(diskStat)
 
-    io_stat, err := GetIOStat()
+    ioStat, err := GetIOStat()
     if err != nil {
         if e, ok := err.(*os.PathError); ok {
             t.Log(e)
@@ -56,17 +56,17 @@ func TestHostStat(t *testing.T) {
             assertNotError(t, err)
         }
     }
-    t.Log(io_stat)
+    t.Log(ioStat)
 
-    net_stat, err := GetNetStat()
+    netStat, err := GetNetStat()
     assertNotError(t, err)
-    t.Log(net_stat)
+    t.Log(netStat)
 
-    uptime_stat, err := GetUptimeStat()
+    uptimeStat, err := GetUptimeStat()
     assertNotError(t, err)
-    t.Log(uptime_stat)
+    t.Log(uptimeStat)
 
-    load_stat, err := GetLoadStat()
+    loadStat, err := GetLoadStat()
     assertNotError(t, err)
-    t.Log(load_stat)
+    t.Log(loadStat)
 }

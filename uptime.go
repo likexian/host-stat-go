@@ -7,7 +7,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import (
@@ -16,6 +16,7 @@ import (
 )
 
 
+// UptimeStat storing uptime stat
 type UptimeStat struct {
     Uptime   float64 `json:"uptime"`
     IdleTime float64 `json:"idle_time"`
@@ -23,6 +24,7 @@ type UptimeStat struct {
 }
 
 
+// GetUptimeStat returns uptime stat
 func GetUptimeStat() (stat UptimeStat, err error) {
     text, err := ReadFirstLine("/proc/uptime")
     if err != nil {

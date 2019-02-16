@@ -7,7 +7,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import (
@@ -17,6 +17,7 @@ import (
 )
 
 
+// IOStat storing io stat
 type IOStat struct {
     Major        uint64 `json:"major"`         // major device number
     Minor        uint64 `json:"minor"`         // minor device number
@@ -37,6 +38,7 @@ type IOStat struct {
 }
 
 
+// GetIOStat returns io stat
 func GetIOStat() (stat []IOStat, err error) {
     text, err := ioutil.ReadFile("/proc/diskstats")
     if err != nil {
@@ -55,26 +57,26 @@ func GetIOStat() (stat []IOStat, err error) {
             continue
         }
 
-        io_stat := IOStat{}
-        io_stat.Major, _ = strconv.ParseUint(fields[0], 10, strconv.IntSize)
-        io_stat.Minor, _ = strconv.ParseUint(fields[1], 10, strconv.IntSize)
-        io_stat.Name = fields[2]
-        io_stat.ReadIOs, _ = strconv.ParseUint(fields[3], 10, strconv.IntSize)
-        io_stat.ReadMerges, _ = strconv.ParseUint(fields[4], 10, strconv.IntSize)
-        io_stat.ReadSectors, _ = strconv.ParseUint(fields[5], 10, strconv.IntSize)
-        io_stat.ReadTicks, _ = strconv.ParseUint(fields[6], 10, strconv.IntSize)
-        io_stat.WriteIOs, _ = strconv.ParseUint(fields[7], 10, strconv.IntSize)
-        io_stat.WriteMerges, _ = strconv.ParseUint(fields[8], 10, strconv.IntSize)
-        io_stat.WriteSectors, _ = strconv.ParseUint(fields[9], 10, strconv.IntSize)
-        io_stat.WriteTicks, _ = strconv.ParseUint(fields[10], 10, strconv.IntSize)
-        io_stat.InFlight, _ = strconv.ParseUint(fields[11], 10, strconv.IntSize)
-        io_stat.IOTicks, _ = strconv.ParseUint(fields[12], 10, strconv.IntSize)
-        io_stat.TimeInQueue, _ = strconv.ParseUint(fields[13], 10, strconv.IntSize)
+        ioStat := IOStat{}
+        ioStat.Major, _ = strconv.ParseUint(fields[0], 10, strconv.IntSize)
+        ioStat.Minor, _ = strconv.ParseUint(fields[1], 10, strconv.IntSize)
+        ioStat.Name = fields[2]
+        ioStat.ReadIOs, _ = strconv.ParseUint(fields[3], 10, strconv.IntSize)
+        ioStat.ReadMerges, _ = strconv.ParseUint(fields[4], 10, strconv.IntSize)
+        ioStat.ReadSectors, _ = strconv.ParseUint(fields[5], 10, strconv.IntSize)
+        ioStat.ReadTicks, _ = strconv.ParseUint(fields[6], 10, strconv.IntSize)
+        ioStat.WriteIOs, _ = strconv.ParseUint(fields[7], 10, strconv.IntSize)
+        ioStat.WriteMerges, _ = strconv.ParseUint(fields[8], 10, strconv.IntSize)
+        ioStat.WriteSectors, _ = strconv.ParseUint(fields[9], 10, strconv.IntSize)
+        ioStat.WriteTicks, _ = strconv.ParseUint(fields[10], 10, strconv.IntSize)
+        ioStat.InFlight, _ = strconv.ParseUint(fields[11], 10, strconv.IntSize)
+        ioStat.IOTicks, _ = strconv.ParseUint(fields[12], 10, strconv.IntSize)
+        ioStat.TimeInQueue, _ = strconv.ParseUint(fields[13], 10, strconv.IntSize)
 
-        io_stat.ReadBytes = io_stat.ReadSectors * 512
-        io_stat.WriteBytes = io_stat.WriteSectors * 512
+        ioStat.ReadBytes = ioStat.ReadSectors * 512
+        ioStat.WriteBytes = ioStat.WriteSectors * 512
 
-        stat = append(stat, io_stat)
+        stat = append(stat, ioStat)
     }
 
     return

@@ -7,7 +7,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import (
@@ -17,6 +17,7 @@ import (
 )
 
 
+// LoadStat storing load stat
 type LoadStat struct {
     LoadNow      float64 `json:"load_now"`
     LoadPre      float64 `json:"load_pre"`
@@ -27,6 +28,7 @@ type LoadStat struct {
 }
 
 
+// GetLoadStat returns load stat
 func GetLoadStat() (stat LoadStat, err error) {
     text, err := ioutil.ReadFile("/proc/loadavg")
     if err != nil {

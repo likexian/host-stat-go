@@ -7,7 +7,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import (
@@ -16,6 +16,7 @@ import (
 )
 
 
+// HostInfo storing host info
 type HostInfo struct {
     HostName  string `json:"host_name"`
     OSType    string `json:"os_type"`
@@ -26,6 +27,7 @@ type HostInfo struct {
 }
 
 
+// GetHostInfo returns host info
 func GetHostInfo() (info HostInfo, err error) {
     info.HostName, err = ReadFirstLine("/proc/sys/kernel/hostname")
     if err != nil {
@@ -69,6 +71,7 @@ func GetHostInfo() (info HostInfo, err error) {
 }
 
 
+// GetRelease returns host release info
 func GetRelease() (name string, err error) {
     text := ""
     if IsFileExists("/etc/os-release") {

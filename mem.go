@@ -7,7 +7,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import (
@@ -17,6 +17,7 @@ import (
 )
 
 
+// MemStat storing memory stat
 type MemStat struct {
     MemTotal  uint64  `json:"mem_total"`
     MemUsed   uint64  `json:"mem_used"`
@@ -31,6 +32,7 @@ type MemStat struct {
 }
 
 
+// GetMemStat returns memory stat
 func GetMemStat() (stat MemStat, err error) {
     text, err := ioutil.ReadFile("/proc/meminfo")
     if err != nil {
@@ -47,17 +49,17 @@ func GetMemStat() (stat MemStat, err error) {
         maps := strings.Split(lines[i], ":")
         key := strings.Trim(maps[0], " ")
         if key == "MemTotal" {
-            stat.MemTotal = parse_mem_value(maps[1])
+            stat.MemTotal = parseMemValue(maps[1])
         } else if key == "MemFree" {
-            stat.MemFree = parse_mem_value(maps[1])
+            stat.MemFree = parseMemValue(maps[1])
         } else if key == "Buffers" {
-            stat.Buffers = parse_mem_value(maps[1])
+            stat.Buffers = parseMemValue(maps[1])
         } else if key == "Cached" {
-            stat.Cached = parse_mem_value(maps[1])
+            stat.Cached = parseMemValue(maps[1])
         } else if key == "SwapTotal" {
-            stat.SwapTotal = parse_mem_value(maps[1])
+            stat.SwapTotal = parseMemValue(maps[1])
         } else if key == "SwapFree" {
-            stat.SwapFree = parse_mem_value(maps[1])
+            stat.SwapFree = parseMemValue(maps[1])
         }
     }
 
@@ -74,7 +76,7 @@ func GetMemStat() (stat MemStat, err error) {
 }
 
 
-func parse_mem_value(value string) (mem uint64) {
+func parseMemValue(value string) (mem uint64) {
     data := strings.Fields(value)
 
     mem, _ = strconv.ParseUint(strings.Trim(data[0], " "), 10, strconv.IntSize)

@@ -9,7 +9,7 @@
  *
  */
 
-package host_stat
+package hoststat
 
 
 import (
@@ -19,6 +19,7 @@ import (
 )
 
 
+// DiskStat storing disk stat
 type DiskStat struct {
     Label    string  `json:"label"`
     Mount    string  `json:"mount"`
@@ -29,6 +30,7 @@ type DiskStat struct {
 }
 
 
+// GetDiskStat returns all disk stat
 func GetDiskStat() (stat []DiskStat, err error) {
     text, err := ioutil.ReadFile("/etc/mtab")
     if err != nil {
@@ -49,9 +51,9 @@ func GetDiskStat() (stat []DiskStat, err error) {
         }
 
         if fields[0] != "none" && fields[0] != "proc" && fields[0] != "sysfs" && fields[0] != "devpts" {
-            disk_stat, _ := GetStat(fields[1])
-            disk_stat.Label = fields[0]
-            stat = append(stat, disk_stat)
+            diskStat, _ := getStat(fields[1])
+            diskStat.Label = fields[0]
+            stat = append(stat, diskStat)
         }
     }
 
@@ -59,7 +61,8 @@ func GetDiskStat() (stat []DiskStat, err error) {
 }
 
 
-func GetStat(path string) (stat DiskStat, err error) {
+// getStat returns the path stat
+func getStat(path string) (stat DiskStat, err error) {
     fs := syscall.Statfs_t{}
     err = syscall.Statfs(path, &fs)
     if err != nil {
