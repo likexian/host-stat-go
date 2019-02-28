@@ -10,6 +10,7 @@
 package hoststat
 
 import (
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -70,7 +71,31 @@ func GetHostInfo() (info HostInfo, err error) {
 // GetRelease returns host release info
 func GetRelease() (name string, err error) {
 	text := ""
-	if IsFileExists("/etc/os-release") {
+	if IsFileExists("/etc/redhat-release") {
+		text, err = ReadFirstLine("/etc/redhat-release")
+		if err != nil {
+			return
+		}
+		name = text
+	} else if IsFileExists("/etc/SuSE-release") {
+		text, err = ReadFirstLine("/etc/SuSE-release")
+		if err != nil {
+			return
+		}
+		name = text
+	} else if IsFileExists("/etc/debian_version") {
+		text, err = ReadFirstLine("/etc/debian_version")
+		if err != nil {
+			return
+		}
+		name = "Debian " + text
+	} else if IsFileExists("/etc/debian_release") {
+		text, err = ReadFirstLine("/etc/debian_release")
+		if err != nil {
+			return
+		}
+		name = "Debian " + text
+	} else if IsFileExists("/etc/os-release") {
 		text, err = ReadFile("/etc/os-release")
 		if err != nil {
 			return
@@ -98,30 +123,6 @@ func GetRelease() (name string, err error) {
 				break
 			}
 		}
-	} else if IsFileExists("/etc/redhat-release") {
-		text, err = ReadFirstLine("/etc/redhat-release")
-		if err != nil {
-			return
-		}
-		name = text
-	} else if IsFileExists("/etc/SuSE-release") {
-		text, err = ReadFirstLine("/etc/SuSE-release")
-		if err != nil {
-			return
-		}
-		name = text
-	} else if IsFileExists("/etc/debian_version") {
-		text, err = ReadFirstLine("/etc/debian_version")
-		if err != nil {
-			return
-		}
-		name = "Debian " + text
-	} else if IsFileExists("/etc/debian_release") {
-		text, err = ReadFirstLine("/etc/debian_release")
-		if err != nil {
-			return
-		}
-		name = "Debian " + text
 	} else if IsFileExists("/etc/lsb-release") {
 		text, err = ReadFile("/etc/lsb-release")
 		if err != nil {
@@ -153,6 +154,13 @@ func GetRelease() (name string, err error) {
 		names := strings.Split(name, "/")
 		name = strings.Join(names[:len(names)-1], "/")
 	}
+
+	naRe := regexp.MustCompile(`(?i)(linux|release)`)
+	name = naRe.ReplaceAllString(name, "")
+
+	spRe := regexp.MustCompile(`\s+`)
+	name = spRe.ReplaceAllString(name, " ")
+
 	name = strings.TrimSpace(name)
 
 	return
