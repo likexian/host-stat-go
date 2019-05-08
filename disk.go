@@ -20,6 +20,7 @@
 package hoststat
 
 import (
+	"github.com/likexian/gokit/xhuman"
 	"io/ioutil"
 	"strings"
 	"syscall"
@@ -78,7 +79,7 @@ func getStat(path string) (stat DiskStat, err error) {
 	stat.Total = fs.Blocks * uint64(fs.Bsize) / (1024 * 1024)
 	stat.Free = fs.Bfree * uint64(fs.Bsize) / (1024 * 1024)
 	stat.Used = stat.Total - stat.Free
-	stat.UsedRate = Round(float64(stat.Used)*100/float64(stat.Total), 2)
+	stat.UsedRate = xhuman.Round(float64(stat.Used)*100/float64(stat.Total), 2)
 
 	return
 }

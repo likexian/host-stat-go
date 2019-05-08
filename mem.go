@@ -20,6 +20,7 @@
 package hoststat
 
 import (
+	"github.com/likexian/gokit/xhuman"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -73,10 +74,10 @@ func GetMemStat() (stat MemStat, err error) {
 	stat.MemUsed = stat.MemTotal - stat.MemFree
 	stat.SwapUsed = stat.SwapTotal - stat.SwapFree
 	if stat.MemTotal > 0 {
-		stat.MemRate = Round(float64(stat.MemUsed)*100/float64(stat.MemTotal), 2)
+		stat.MemRate = xhuman.Round(float64(stat.MemUsed)*100/float64(stat.MemTotal), 2)
 	}
 	if stat.SwapTotal > 0 {
-		stat.SwapRate = Round(float64(stat.SwapUsed)*100/float64(stat.SwapTotal), 2)
+		stat.SwapRate = xhuman.Round(float64(stat.SwapUsed)*100/float64(stat.SwapTotal), 2)
 	}
 
 	return

@@ -20,6 +20,7 @@
 package hoststat
 
 import (
+	"github.com/likexian/gokit/xhuman"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -115,10 +116,10 @@ func GetCPUStat() (stat CPUStat, err error) {
 
 	total := stat.User + stat.Nice + stat.System + stat.Idle + stat.IOWait +
 		stat.IRQ + stat.SoftIRQS + stat.Steal + stat.Guest + stat.GuestNice
-	stat.UserRate = Round(float64(stat.User+stat.Nice)*100/float64(total), 2)
-	stat.SystemRate = Round(float64(stat.System+stat.IRQ+stat.SoftIRQS)*100/float64(total), 2)
-	stat.IdleRate = Round(float64(stat.Idle)*100/float64(total), 2)
-	stat.IOWaitRate = Round(float64(stat.IOWait)*100/float64(total), 2)
+	stat.UserRate = xhuman.Round(float64(stat.User+stat.Nice)*100/float64(total), 2)
+	stat.SystemRate = xhuman.Round(float64(stat.System+stat.IRQ+stat.SoftIRQS)*100/float64(total), 2)
+	stat.IdleRate = xhuman.Round(float64(stat.Idle)*100/float64(total), 2)
+	stat.IOWaitRate = xhuman.Round(float64(stat.IOWait)*100/float64(total), 2)
 
 	return
 }

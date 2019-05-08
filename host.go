@@ -20,6 +20,7 @@
 package hoststat
 
 import (
+	"github.com/likexian/gokit/xfile"
 	"regexp"
 	"strconv"
 	"strings"
@@ -37,17 +38,17 @@ type HostInfo struct {
 
 // GetHostInfo returns host info
 func GetHostInfo() (info HostInfo, err error) {
-	info.HostName, err = ReadFirstLine("/proc/sys/kernel/hostname")
+	info.HostName, err = xfile.ReadFirstLine("/proc/sys/kernel/hostname")
 	if err != nil {
 		return
 	}
 
-	info.OSType, err = ReadFirstLine("/proc/sys/kernel/ostype")
+	info.OSType, err = xfile.ReadFirstLine("/proc/sys/kernel/ostype")
 	if err != nil {
 		return
 	}
 
-	info.OSRelease, err = ReadFirstLine("/proc/sys/kernel/osrelease")
+	info.OSRelease, err = xfile.ReadFirstLine("/proc/sys/kernel/osrelease")
 	if err != nil {
 		return
 	}
@@ -65,7 +66,7 @@ func GetHostInfo() (info HostInfo, err error) {
 		info.OSBit = strconv.Itoa(32<<uintptr(^uintptr(0)>>63)) + "Bit"
 	}
 
-	info.Version, err = ReadFirstLine("/proc/sys/kernel/version")
+	info.Version, err = xfile.ReadFirstLine("/proc/sys/kernel/version")
 	if err != nil {
 		return
 	}
@@ -81,32 +82,32 @@ func GetHostInfo() (info HostInfo, err error) {
 // GetRelease returns host release info
 func GetRelease() (name string, err error) {
 	text := ""
-	if IsFileExists("/etc/redhat-release") {
-		text, err = ReadFirstLine("/etc/redhat-release")
+	if xfile.Exists("/etc/redhat-release") {
+		text, err = xfile.ReadFirstLine("/etc/redhat-release")
 		if err != nil {
 			return
 		}
 		name = text
-	} else if IsFileExists("/etc/SuSE-release") {
-		text, err = ReadFirstLine("/etc/SuSE-release")
+	} else if xfile.Exists("/etc/SuSE-release") {
+		text, err = xfile.ReadFirstLine("/etc/SuSE-release")
 		if err != nil {
 			return
 		}
 		name = text
-	} else if IsFileExists("/etc/debian_version") {
-		text, err = ReadFirstLine("/etc/debian_version")
+	} else if xfile.Exists("/etc/debian_version") {
+		text, err = xfile.ReadFirstLine("/etc/debian_version")
 		if err != nil {
 			return
 		}
 		name = "Debian " + text
-	} else if IsFileExists("/etc/debian_release") {
-		text, err = ReadFirstLine("/etc/debian_release")
+	} else if xfile.Exists("/etc/debian_release") {
+		text, err = xfile.ReadFirstLine("/etc/debian_release")
 		if err != nil {
 			return
 		}
 		name = "Debian " + text
-	} else if IsFileExists("/etc/os-release") {
-		text, err = ReadFile("/etc/os-release")
+	} else if xfile.Exists("/etc/os-release") {
+		text, err = xfile.ReadText("/etc/os-release")
 		if err != nil {
 			return
 		}
@@ -133,8 +134,8 @@ func GetRelease() (name string, err error) {
 				break
 			}
 		}
-	} else if IsFileExists("/etc/lsb-release") {
-		text, err = ReadFile("/etc/lsb-release")
+	} else if xfile.Exists("/etc/lsb-release") {
+		text, err = xfile.ReadText("/etc/lsb-release")
 		if err != nil {
 			return
 		}

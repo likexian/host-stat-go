@@ -20,6 +20,8 @@
 package hoststat
 
 import (
+	"github.com/likexian/gokit/xfile"
+	"github.com/likexian/gokit/xhuman"
 	"strconv"
 	"strings"
 )
@@ -33,7 +35,7 @@ type UptimeStat struct {
 
 // GetUptimeStat returns uptime stat
 func GetUptimeStat() (stat UptimeStat, err error) {
-	text, err := ReadFirstLine("/proc/uptime")
+	text, err := xfile.ReadFirstLine("/proc/uptime")
 	if err != nil {
 		return
 	}
@@ -44,10 +46,10 @@ func GetUptimeStat() (stat UptimeStat, err error) {
 	stat = UptimeStat{}
 	stat.Uptime, _ = strconv.ParseFloat(fields[0], strconv.IntSize)
 	stat.IdleTime, _ = strconv.ParseFloat(fields[1], strconv.IntSize)
-	stat.IdleRate = Round(stat.IdleTime*100/stat.Uptime, 2)
+	stat.IdleRate = xhuman.Round(stat.IdleTime*100/stat.Uptime, 2)
 
-	stat.Uptime = Round(stat.Uptime, 2)
-	stat.IdleTime = Round(stat.IdleTime, 2)
+	stat.Uptime = xhuman.Round(stat.Uptime, 2)
+	stat.IdleTime = xhuman.Round(stat.IdleTime, 2)
 
 	return
 }

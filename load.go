@@ -20,6 +20,7 @@
 package hoststat
 
 import (
+	"github.com/likexian/gokit/xhuman"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -50,9 +51,9 @@ func GetLoadStat() (stat LoadStat, err error) {
 	stat.LoadPre, _ = strconv.ParseFloat(fields[1], strconv.IntSize)
 	stat.LoadFar, _ = strconv.ParseFloat(fields[2], strconv.IntSize)
 
-	stat.LoadNow = Round(stat.LoadNow, 2)
-	stat.LoadPre = Round(stat.LoadPre, 2)
-	stat.LoadFar = Round(stat.LoadFar, 2)
+	stat.LoadNow = xhuman.Round(stat.LoadNow, 2)
+	stat.LoadPre = xhuman.Round(stat.LoadPre, 2)
+	stat.LoadFar = xhuman.Round(stat.LoadFar, 2)
 
 	processes := strings.Split(fields[3], "/")
 	stat.ProcessRun, _ = strconv.ParseUint(processes[0], 10, strconv.IntSize)
