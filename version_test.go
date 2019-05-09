@@ -19,17 +19,13 @@
 
 package hoststat
 
-// Version returns package version
-func Version() string {
-	return "0.5.4"
-}
+import (
+	"github.com/likexian/gokit/assert"
+	"testing"
+)
 
-// Author returns package author
-func Author() string {
-	return "[Li Kexian](https://www.likexian.com/)"
-}
-
-// License returns package license
-func License() string {
-	return "Licensed under the Apache License 2.0"
+func TestVersion(t *testing.T) {
+	assert.Contains(t, Version(), ".")
+	assert.Contains(t, Author(), "likexian")
+	assert.Contains(t, License(), "Apache License")
 }

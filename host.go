@@ -82,7 +82,19 @@ func GetHostInfo() (info HostInfo, err error) {
 // GetRelease returns host release info
 func GetRelease() (name string, err error) {
 	text := ""
-	if xfile.Exists("/etc/redhat-release") {
+	if xfile.Exists("/etc/centos-release") {
+		text, err = xfile.ReadFirstLine("/etc/centos-release")
+		if err != nil {
+			return
+		}
+		name = text
+	} else if xfile.Exists("/etc/fedora-release") {
+		text, err = xfile.ReadFirstLine("/etc/fedora-release")
+		if err != nil {
+			return
+		}
+		name = text
+	} else if xfile.Exists("/etc/redhat-release") {
 		text, err = xfile.ReadFirstLine("/etc/redhat-release")
 		if err != nil {
 			return
@@ -114,6 +126,7 @@ func GetRelease() (name string, err error) {
 
 		lines := strings.Split(text, "\n")
 		for _, l := range lines {
+			l = strings.TrimSpace(l)
 			if !strings.Contains(l, "=") {
 				continue
 			}
@@ -142,6 +155,7 @@ func GetRelease() (name string, err error) {
 
 		lines := strings.Split(text, "\n")
 		for _, l := range lines {
+			l = strings.TrimSpace(l)
 			if !strings.Contains(l, "=") {
 				continue
 			}
@@ -161,12 +175,13 @@ func GetRelease() (name string, err error) {
 		name = names[0]
 	}
 
+	name = strings.Replace(name, "GNU/", "", -1)
 	if strings.Contains(name, "/") {
 		names := strings.Split(name, "/")
 		name = strings.Join(names[:len(names)-1], "/")
 	}
 
-	naRe := regexp.MustCompile(`(?i)(linux|release)`)
+	naRe := regexp.MustCompile(`(?i)(gnu|linux|server|release)`)
 	name = naRe.ReplaceAllString(name, "")
 
 	spRe := regexp.MustCompile(`\s+`)
