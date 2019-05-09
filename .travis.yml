@@ -1,7 +1,9 @@
 language: go
 
+sudo: required
+
 script:
-  - go test -race -v -bench=. -coverprofile=coverage.txt -covermode=atomic ./...
+  - sudo -E env "PATH=$PATH" go test -race -v -bench=. -coverprofile=coverage.txt -covermode=atomic ./...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
