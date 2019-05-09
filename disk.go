@@ -56,7 +56,7 @@ func GetDiskStat() (stat []DiskStat, err error) {
 			continue
 		}
 
-		if fields[0] != "none" && fields[0] != "proc" && fields[0] != "sysfs" && fields[0] != "devpts" {
+		if fields[2] != "proc" && fields[2] != "cgroup" && fields[2] != "sysfs" && fields[2] != "devpts" && fields[2] != "mqueue" {
 			diskStat, _ := getStat(fields[1])
 			diskStat.Label = fields[0]
 			stat = append(stat, diskStat)

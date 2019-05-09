@@ -21,7 +21,7 @@ package hoststat
 
 // Version returns package version
 func Version() string {
-	return "0.5.2"
+	return "0.5.3"
 }
 
 // Author returns package author

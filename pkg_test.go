@@ -44,7 +44,9 @@ func TestHostStat(t *testing.T) {
 
 	diskStat, err := GetDiskStat()
 	assert.Nil(t, err)
-	t.Log(diskStat)
+	for _, v := range diskStat {
+		t.Log(v)
+	}
 
 	ioStat, err := GetIOStat()
 	if err != nil {
