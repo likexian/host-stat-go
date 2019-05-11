@@ -80,6 +80,25 @@ func TestGetRelease(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, name, "Debian 8")
 
+	// /etc/os-release
+	releaseText = `
+	NAME=Fedora
+	VERSION="17 (Beefy Miracle)"
+	ID=fedora
+	VERSION_ID=17
+	PRETTY_NAME="Fedora 17 (Beefy Miracle)"
+	ANSI_COLOR="0;34"
+	CPE_NAME="cpe:/o:fedoraproject:fedora:17"
+	HOME_URL="https://fedoraproject.org/"
+	BUG_REPORT_URL="https://bugzilla.redhat.com/"
+	`
+	err = xfile.WriteText("/etc/os-release", releaseText)
+	assert.Nil(t, err)
+
+	name, err = GetRelease()
+	assert.Nil(t, err)
+	assert.Equal(t, name, "Fedora 17")
+
 	// /etc/debian_release
 	releaseText = "lenny/sid"
 	err = xfile.WriteText("/etc/debian_release", releaseText)
